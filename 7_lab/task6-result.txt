@@ -1,0 +1,4 @@
+Завдання 6. Аналіз вразливостей RSA
+Повідомлення: Test message for RSA vulnerability analysis
+Plain RSA ciphertext-и однакові: True
+RSA-OAEP ciphertext-и однакові: False
