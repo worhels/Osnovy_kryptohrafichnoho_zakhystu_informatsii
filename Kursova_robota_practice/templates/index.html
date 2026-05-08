@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block title %}Головна{% endblock %}
+
+{% block content %}
+<section class="hero-grid">
+    <div class="panel hero-panel">
+        <p class="eyebrow">Курсова робота з кібербезпеки</p>
+        <h1>PasswordGuard</h1>
+        <p class="hero-subtitle">Веб-прототип захисту паролів</p>
+        <p class="lead">
+            Локальний Flask-застосунок демонструє реєстрацію користувачів, хешування паролів
+            за допомогою <code>bcrypt</code>, <code>scrypt</code> та <code>Argon2id</code>,
+            збереження парольних хешів у SQLite та експериментальне порівняння алгоритмів.
+        </p>
+
+        <div class="pill-row">
+            <span class="mono-pill">bcrypt</span>
+            <span class="mono-pill">scrypt</span>
+            <span class="mono-pill">Argon2id</span>
+            <span class="mono-pill">SQLite</span>
+        </div>
+
+        <div class="button-row">
+            <a class="button button-primary" href="{{ url_for('register') }}">Створити користувача</a>
+            <a class="button button-secondary" href="{{ url_for('benchmark') }}">Відкрити бенчмарк</a>
+        </div>
+    </div>
+
+    <aside class="panel side-panel">
+        <p class="eyebrow">Огляд системи</p>
+        <h2>Локальний security prototype</h2>
+        <div class="summary-list">
+            <div class="summary-item">
+                <span>Алгоритм за замовчуванням</span>
+                <strong>{{ default_algorithm_label }}</strong>
+            </div>
+            <div class="summary-item">
+                <span>Захист сесій</span>
+                <strong>HTTPOnly + SameSite</strong>
+            </div>
+            <div class="summary-item">
+                <span>Сховище хешів</span>
+                <strong>SQLite</strong>
+            </div>
+        </div>
+        {% if current_user %}
+        <p class="panel-note">У системі зараз активний користувач <strong>{{ current_user }}</strong>.</p>
+        {% else %}
+        <p class="panel-note">Після входу стають доступними сторінки користувачів і benchmark.</p>
+        {% endif %}
+    </aside>
+</section>
+
+<section class="content-block">
+    <div class="section-heading-block">
+        <p class="eyebrow">Процес роботи</p>
+        <h2>Як працює прототип</h2>
+        <p>Прототип проходить повний практичний цикл: від введення пароля до перевірки хешу та оцінки швидкодії алгоритмів.</p>
+    </div>
+
+    <div class="steps-grid">
+        <article class="step-card">
+            <span class="step-badge">1</span>
+            <h3>Введення пароля</h3>
+            <p>Користувач вводить логін і пароль у формі реєстрації або входу.</p>
+        </article>
+        <article class="step-card">
+            <span class="step-badge">2</span>
+            <h3>Вибір алгоритму</h3>
+            <p>Для нового запису обирається bcrypt, scrypt або Argon2id.</p>
+        </article>
+        <article class="step-card">
+            <span class="step-badge">3</span>
+            <h3>Формування хешу</h3>
+            <p>Пароль обробляється з pepper-секретом і перетворюється на криптографічний хеш.</p>
+        </article>
+        <article class="step-card">
+            <span class="step-badge">4</span>
+            <h3>Збереження в SQLite</h3>
+            <p>У базі фіксуються лише логін, алгоритм, хеш і дата створення запису.</p>
+        </article>
+        <article class="step-card">
+            <span class="step-badge">5</span>
+            <h3>Перевірка та benchmark</h3>
+            <p>Під час входу порівнюється хеш, а benchmark показує часові характеристики алгоритмів.</p>
+        </article>
+    </div>
+</section>
+
+<section class="content-block">
+    <div class="section-heading-block">
+        <p class="eyebrow">Підтримка алгоритмів</p>
+        <h2>Підтримувані алгоритми</h2>
+    </div>
+
+    <div class="card-grid card-grid-3">
+        <article class="panel info-card">
+            <span class="mono-pill">bcrypt</span>
+            <h3>bcrypt</h3>
+            <ul class="detail-list">
+                <li>адаптивний алгоритм із параметром cost;</li>
+                <li>сумісний і поширений варіант.</li>
+            </ul>
+        </article>
+        <article class="panel info-card">
+            <span class="mono-pill">scrypt</span>
+            <h3>scrypt</h3>
+            <ul class="detail-list">
+                <li>пам'яттєво-складний алгоритм;</li>
+                <li>ускладнює GPU/ASIC-підбір.</li>
+            </ul>
+        </article>
+        <article class="panel info-card">
+            <span class="mono-pill">Argon2id</span>
+            <h3>Argon2id</h3>
+            <ul class="detail-list">
+                <li>рекомендований варіант;</li>
+                <li>поєднує час, пам'ять і паралелізм.</li>
+            </ul>
+        </article>
+    </div>
+</section>
+
+<section class="content-block split-block">
+    <div class="panel">
+        <p class="eyebrow">SQLite-сховище</p>
+        <h2>Що зберігається в базі</h2>
+        <p class="lead compact-lead">
+            У базі SQLite не зберігаються відкриті паролі. Для кожного користувача
+            зберігаються логін, назва алгоритму, парольний хеш і дата створення запису.
+        </p>
+    </div>
+
+    <div class="panel table-panel">
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Поле</th>
+                        <th>Призначення</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>username</code></td>
+                        <td>логін користувача</td>
+                    </tr>
+                    <tr>
+                        <td><code>algorithm</code></td>
+                        <td>використаний алгоритм хешування</td>
+                    </tr>
+                    <tr>
+                        <td><code>password_hash</code></td>
+                        <td>результат криптографічної обробки пароля</td>
+                    </tr>
+                    <tr>
+                        <td><code>created_at</code></td>
+                        <td>дата створення запису</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="content-block">
+    <div class="section-heading-block">
+        <p class="eyebrow">Практичне значення</p>
+        <h2>Практичний результат</h2>
+    </div>
+
+    <div class="panel">
+        <ul class="result-list">
+            <li>реалізовано реєстрацію та вхід;</li>
+            <li>реалізовано bcrypt, scrypt та Argon2id;</li>
+            <li>відкриті паролі не зберігаються;</li>
+            <li>benchmark зберігає результати у <code>results.csv</code>;</li>
+            <li>проєкт може бути використаний для демонстрації безпечного зберігання паролів.</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

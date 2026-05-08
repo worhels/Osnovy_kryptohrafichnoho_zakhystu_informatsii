@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Користувачі{% endblock %}
+
+{% block content %}
+<section class="content-block">
+    <div class="section-heading-block section-inline">
+        <div>
+            <p class="eyebrow">Захищений розділ</p>
+            <h1>Зареєстровані користувачі</h1>
+        </div>
+        <span class="page-badge">Активний користувач: {{ current_user }}</span>
+    </div>
+
+    <div class="summary-grid">
+        <article class="panel summary-card">
+            <span class="summary-label">Кількість користувачів</span>
+            <strong class="summary-value">{{ user_count }}</strong>
+            <p>Записи збережені у локальній SQLite-базі.</p>
+        </article>
+        <article class="panel summary-card">
+            <span class="summary-label">Алгоритм за замовчуванням</span>
+            <strong class="summary-value">{{ default_algorithm_label }}</strong>
+            <p>Використовується як рекомендований варіант під час реєстрації.</p>
+        </article>
+        <article class="panel summary-card">
+            <span class="summary-label">Рекомендований алгоритм</span>
+            <strong class="summary-value">{{ recommended_algorithm }}</strong>
+            <p>Найкраще підходить для нових систем зберігання паролів.</p>
+        </article>
+    </div>
+</section>
+
+<section class="content-block">
+    <div class="panel table-panel">
+        {% if users %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Користувач</th>
+                        <th>Алгоритм</th>
+                        <th>Фрагмент хешу</th>
+                        <th>Створено</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td><span class="mono-pill mono-pill-inline">{{ user.algorithm }}</span></td>
+                        <td><code>{{ user.password_hash[:70] }}{% if user.password_hash|length > 70 %}...{% endif %}</code></td>
+                        <td>{{ user.created_at }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="empty-state">У базі даних поки що немає користувачів.</p>
+        {% endif %}
+
+        <p class="note-text">
+            У базі даних зберігаються лише парольні хеші. Відкриті паролі користувачів не зберігаються.
+        </p>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Вхід{% endblock %}
+{% block body_class %}app-body auth-page{% endblock %}
+{% block container_class %}container-wide{% endblock %}
+
+{% block content %}
+<section class="auth-layout">
+    <div class="panel auth-panel auth-card">
+        <p class="eyebrow">Авторизація</p>
+        <h1>Вхід до системи</h1>
+        <p class="lead compact-lead">
+            Доступ до захищених сторінок надається після перевірки пароля через збережений хеш.
+        </p>
+
+        <form method="post" class="auth-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <label>
+                <span>Ім'я користувача</span>
+                <input
+                    type="text"
+                    name="username"
+                    value="{{ form_username }}"
+                    required
+                    minlength="3"
+                    maxlength="32"
+                    pattern="[A-Za-z0-9_.-]{3,32}"
+                    placeholder="student_01"
+                    autocomplete="username"
+                >
+            </label>
+
+            <label>
+                <span>Пароль</span>
+                <input
+                    type="password"
+                    name="password"
+                    required
+                    minlength="8"
+                    maxlength="128"
+                    placeholder="Введіть пароль"
+                    autocomplete="current-password"
+                >
+            </label>
+
+            <p class="form-hint">Перевірка пароля виконується лише через порівняння хешу.</p>
+
+            <button class="button button-primary button-wide" type="submit">Увійти</button>
+        </form>
+    </div>
+
+    <aside class="auth-visual auth-visual-login">
+        <div class="visual-content">
+            <span class="visual-pill">Secure auth</span>
+            <h2>Контрольований доступ до захищеної системи</h2>
+            <p>
+                Під час входу система не порівнює відкриті паролі. Введене значення проходить через
+                <code>verify_password()</code>, після чого формується відповідь автентифікації та
+                створюється сесія.
+            </p>
+
+            <div class="pipeline-block">
+                <span class="pipeline-label">Pipeline</span>
+                <p>password → stored_hash → verify_password() → session</p>
+            </div>
+
+            <div class="security-badges" aria-label="Компоненти захисту входу">
+                <span class="security-badge">CSRF</span>
+                <span class="security-badge">HTTPOnly</span>
+                <span class="security-badge">SameSite</span>
+                <span class="security-badge">rate limit</span>
+            </div>
+        </div>
+    </aside>
+</section>
+{% endblock %}

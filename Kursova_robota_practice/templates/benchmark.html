@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Бенчмарк{% endblock %}
+
+{% block content %}
+<section class="content-block">
+    <div class="section-heading-block section-inline">
+        <div>
+            <p class="eyebrow">Експериментальна оцінка</p>
+            <h1>Порівняння bcrypt, scrypt та Argon2id</h1>
+            <p>Сторінка доступна лише після входу та дозволяє запускати benchmark для локальної демонстрації.</p>
+        </div>
+        <span class="page-badge">Користувач: {{ current_user }}</span>
+    </div>
+
+    <div class="summary-grid">
+        <article class="panel summary-card">
+            <span class="summary-label">Найшвидший алгоритм</span>
+            <strong class="summary-value">{{ benchmark_summary.fastest }}</strong>
+            <p>Визначається за середнім часом хешування у поточних результатах.</p>
+        </article>
+        <article class="panel summary-card">
+            <span class="summary-label">Найбільш захищений</span>
+            <strong class="summary-value">{{ benchmark_summary.strongest }}</strong>
+            <p>Позиціонується як найпереконливіший варіант для сучасних систем.</p>
+        </article>
+        <article class="panel summary-card">
+            <span class="summary-label">Рекомендований для нових систем</span>
+            <strong class="summary-value">{{ benchmark_summary.recommended }}</strong>
+            <p>Використовується у прототипі як алгоритм за замовчуванням.</p>
+        </article>
+    </div>
+</section>
+
+<section class="content-block">
+    <div class="panel action-panel">
+        <div>
+            <p class="eyebrow">Запуск вимірювання</p>
+            <h2>Локальний benchmark</h2>
+        </div>
+        <form method="post" class="inline-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label>
+                <span>Кількість повторів</span>
+                <input type="number" name="rounds" value="5" min="1" max="20">
+            </label>
+            <button class="button button-primary" type="submit">Запустити benchmark</button>
+        </form>
+    </div>
+</section>
+
+{% if results %}
+<section class="content-block">
+    <div class="panel chart-panel">
+        <p class="eyebrow">Візуалізація</p>
+        <h2>Порівняння часу хешування та перевірки</h2>
+
+        <div class="chart-stack">
+            {% for row in results %}
+            <div class="chart-row">
+                <div class="chart-row-head">
+                    <div>
+                        <strong>{{ row.algorithm_display }}</strong>
+                        <p>{{ row.parameters }}</p>
+                    </div>
+                    <span class="mono-pill mono-pill-inline">{{ row.rounds }} повторів</span>
+                </div>
+
+                <div class="metric-line">
+                    <span>Хешування</span>
+                    <div class="metric-track">
+                        <div class="metric-fill metric-fill-hash" style="width: {{ row.hash_bar_pct }}%;"></div>
+                    </div>
+                    <strong>{{ row.avg_hash_ms }} мс</strong>
+                </div>
+
+                <div class="metric-line">
+                    <span>Перевірка</span>
+                    <div class="metric-track">
+                        <div class="metric-fill metric-fill-verify" style="width: {{ row.verify_bar_pct }}%;"></div>
+                    </div>
+                    <strong>{{ row.avg_verify_ms }} мс</strong>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="content-block">
+    <div class="panel table-panel">
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Алгоритм</th>
+                        <th>Параметри</th>
+                        <th>Повтори</th>
+                        <th>Середній час хешування, мс</th>
+                        <th>Середній час перевірки, мс</th>
+                        <th>Правильний пароль</th>
+                        <th>Неправильний пароль</th>
+                        <th>Довжина пароля</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in results %}
+                    <tr>
+                        <td>{{ row.algorithm_display }}</td>
+                        <td>{{ row.parameters }}</td>
+                        <td>{{ row.rounds }}</td>
+                        <td>{{ row.avg_hash_ms }}</td>
+                        <td>{{ row.avg_verify_ms }}</td>
+                        <td>{{ row.correct_password }}</td>
+                        <td>{{ row.wrong_password }}</td>
+                        <td>{{ row.password_length }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="content-block">
+    <div class="panel">
+        <p class="empty-state">Результати ще не сформовані. Увійдіть у систему та запустіть benchmark, щоб отримати локальні дані для курсової демонстрації.</p>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

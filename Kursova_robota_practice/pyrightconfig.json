@@ -1,0 +1,12 @@
+{
+    "venvPath": ".",
+    "venv": ".venv",
+    "pythonVersion": "3.12",
+    "typeCheckingMode": "basic",
+    "reportUnknownVariableType": "none",
+    "reportUnknownMemberType": "none",
+    "reportUnknownParameterType": "none",
+    "reportUnknownArgumentType": "none",
+    "reportMissingParameterType": "none",
+    "reportUntypedFunctionDecorator": "none"
+}

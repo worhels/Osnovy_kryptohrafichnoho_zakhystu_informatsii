@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Реєстрація{% endblock %}
+{% block body_class %}app-body auth-page{% endblock %}
+{% block container_class %}container-wide{% endblock %}
+
+{% block content %}
+<section class="auth-layout">
+    <div class="panel auth-panel auth-card">
+        <p class="eyebrow">Створення облікового запису</p>
+        <h1>Реєстрація користувача</h1>
+        <p class="lead compact-lead">
+            Обліковий запис створюється з хешуванням пароля та без збереження відкритого значення.
+        </p>
+
+        <form method="post" class="auth-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <label>
+                <span>Ім'я користувача</span>
+                <input
+                    type="text"
+                    name="username"
+                    value="{{ form_username }}"
+                    required
+                    minlength="3"
+                    maxlength="32"
+                    pattern="[A-Za-z0-9_.-]{3,32}"
+                    placeholder="student_01"
+                    autocomplete="username"
+                >
+            </label>
+
+            <label>
+                <span>Пароль</span>
+                <input
+                    type="password"
+                    name="password"
+                    required
+                    minlength="8"
+                    maxlength="128"
+                    placeholder="Від 8 до 128 символів"
+                    autocomplete="new-password"
+                >
+            </label>
+
+            <label>
+                <span>Підтвердження пароля</span>
+                <input
+                    type="password"
+                    name="confirm_password"
+                    required
+                    minlength="8"
+                    maxlength="128"
+                    placeholder="Повторіть пароль"
+                    autocomplete="new-password"
+                >
+            </label>
+
+            <label>
+                <span>Алгоритм хешування</span>
+                <select name="algorithm">
+                    {% for value, label in algorithms %}
+                    <option value="{{ value }}" {% if value == selected_algorithm %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+
+            <p class="form-hint">За замовчуванням рекомендується Argon2id.</p>
+
+            <button class="button button-primary button-wide" type="submit">Створити обліковий запис</button>
+        </form>
+    </div>
+
+    <aside class="auth-visual auth-visual-register">
+        <div class="visual-content">
+            <span class="visual-pill">Secure signup</span>
+            <h2>Пароль проходить крізь захищений конвеєр</h2>
+            <p>
+                Під час реєстрації пароль поєднується з pepper-секретом, обробляється вибраним
+                алгоритмом хешування та зберігається у SQLite лише як <code>password_hash</code>.
+            </p>
+
+            <div class="pipeline-block">
+                <span class="pipeline-label">Pipeline</span>
+                <p>password → pepper → bcrypt/scrypt/Argon2id → password_hash → SQLite</p>
+            </div>
+
+            <div class="security-badges" aria-label="Алгоритми та секрет">
+                <span class="security-badge">bcrypt</span>
+                <span class="security-badge">scrypt</span>
+                <span class="security-badge">Argon2id</span>
+                <span class="security-badge">pepper</span>
+            </div>
+        </div>
+    </aside>
+</section>
+{% endblock %}
