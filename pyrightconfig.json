@@ -1,0 +1,28 @@
+{
+  "exclude": [
+    "**/.venv",
+    "**/__pycache__"
+  ],
+  "typeCheckingMode": "basic",
+  "reportUnknownVariableType": "none",
+  "reportUnknownMemberType": "none",
+  "reportUnknownParameterType": "none",
+  "reportUnknownArgumentType": "none",
+  "reportMissingParameterType": "none",
+  "reportUntypedFunctionDecorator": "none",
+  "executionEnvironments": [
+    {
+      "root": ".",
+      "extraPaths": [
+        "./4_lab",
+        "./5_lab",
+        "./7_lab",
+        "./8_lab",
+        "./9_lab",
+        "./Kursova_robota_practice",
+        "./Kursova_robota_practice/.venv/Lib/site-packages",
+        "C:/Users/zenac/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312/site-packages"
+      ]
+    }
+  ]
+}
