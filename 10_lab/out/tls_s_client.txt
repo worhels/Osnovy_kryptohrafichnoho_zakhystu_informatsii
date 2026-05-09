@@ -1,0 +1,53 @@
+﻿CONNECTED(00000004)
+---
+Certificate chain
+ 0 s:C=UA, L=Chernihiv, O=Lab10, CN=localhost
+   i:C=UA, O=LabCA, CN=Lab Root CA
+   a:PKEY: rsaEncryption, 2048 (bit); sigalg: RSA-SHA256
+   v:NotBefore: May  9 20:28:59 2026 GMT; NotAfter: Jun  8 20:29:59 2026 GMT
+-----BEGIN CERTIFICATE-----
+MIID1zCCAj+gAwIBAgIUIQTrP+/oAvJ/7zklXtKT45ZVmoUwDQYJKoZIhvcNAQEL
+BQAwMzELMAkGA1UEBhMCVUExDjAMBgNVBAoMBUxhYkNBMRQwEgYDVQQDDAtMYWIg
+Um9vdCBDQTAeFw0yNjA1MDkyMDI4NTlaFw0yNjA2MDgyMDI5NTlaMEUxCzAJBgNV
+BAYTAlVBMRIwEAYDVQQHDAlDaGVybmloaXYxDjAMBgNVBAoMBUxhYjEwMRIwEAYD
+VQQDDAlsb2NhbGhvc3QwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDS
+XJ+3YokQIF0gTFFHQrlYdOG7ohzpmmW1FG+XGOrJxUDWiNsv1UlAM5m7h+8583I3
+JAdVZUDYTSNpnYFzaBH/5L13X4HlQrWHA43u0ry54O/9+eiSfD2HfbnBZdOngK4d
+JscHMhAut0G5VZft91ClKga8JsAmFCPaIy1s5tEIUrOBNK+5oZAzyIpVwZwIQ6JV
+Imf8v1cHRkUDspLZ1vsOzGVV+3q/yoqIid7R9BzBO3dPwgnYLEzeBWM/iNStEClS
+v4xoEX+QqNMIZz6IIzADSBM3aeY1XQf+yhM1e+sNPx43OMHiWIKzjFCsGN05LUvD
+qaFfhx2d48GyKZno2Z2hAgMBAAGjUTBPMBoGA1UdEQQTMBGCCWxvY2FsaG9zdIcE
+fwAAATAMBgNVHRMBAf8EAjAAMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggr
+BgEFBQcDATANBgkqhkiG9w0BAQsFAAOCAYEAY+qNZ1qZxIp+aGTIxmZ6wNOKDtaA
+0P29sK+vWNkYbJ+lEHR8hBlsX1/A9uOskPTxlx/qUfHunyAWDg3ccPjNAggjXid2
+D42AE1+1b5rFB08fR1qQfBOjiD+4BRMi1Q0OlhJ/FzwUmwbtl480lXTbwpmkaIr+
+IeaYZEo/GGjBPijrtb/zr1wDxJzqUGs9fCqs+JiTOjJuBEiOx6klm/5/Nxb9I5Vl
+25OSoe/Z5d8ZfflB6xeK5FHw0LbEWcxKa4FwMomjSBWkW3QNIhbAgxe4qaYYV6k2
+/NFFbzYASHn5/wRqPvGtpHJ5+hFzM81469voq/bsbkIdRr79hTE+LginSwcR3ug+
+/LSEy+zfFSN5WeXeYPt+7c22yXidAVTZDYIwLESbXo2i/ULkMoUSa5l6Jo5vRcqF
+OVVpunACnOELtbE0i1xAfQuiXu6bsxzaF0dL31rvcfmEThigaW6jP1erF/kBSeGU
+xu5ysGTzzwUdYJC0fn6yN8LKX0g/XA9nYT5B
+-----END CERTIFICATE-----
+---
+Server certificate
+subject=C=UA, L=Chernihiv, O=Lab10, CN=localhost
+issuer=C=UA, O=LabCA, CN=Lab Root CA
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: RSA-PSS
+Server Temp Key: X25519, 253 bits
+---
+SSL handshake has read 1543 bytes and written 397 bytes
+Verification: OK
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Server public key is 2048 bit
+This TLS version forbids renegotiation.
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 0 (ok)
+---
+

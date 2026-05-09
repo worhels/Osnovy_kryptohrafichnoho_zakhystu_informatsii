@@ -1,0 +1,9 @@
+﻿Task 5 commands used:
+
+openssl s_server -accept 8443 -cert out/server_ca.crt -key out/server.key -www
+openssl s_client -connect localhost:8443 -CAfile out/rootCA.crt -showcerts -servername localhost -verify_return_error
+
+Report lines to include:
+Verification: OK
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Verify return code: 0 (ok)

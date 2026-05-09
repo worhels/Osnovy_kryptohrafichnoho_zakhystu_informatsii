@@ -1,0 +1,7 @@
+﻿Connecting to 127.0.0.1
+depth=1 C=UA, O=LabCA, CN=Lab Root CA
+verify return:1
+depth=0 C=UA, L=Chernihiv, O=Lab10, CN=localhost
+verify return:1
+DONE
+
